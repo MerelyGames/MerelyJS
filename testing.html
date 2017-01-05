@@ -2,8 +2,35 @@
 <html>
 <head>
 	<title>Testing MerelyJS</title>
+	<meta charset="utf-8">
 </head>
 <body>
+    <!--<script type="text/javascript" src="merely-js.js"></script>-->
+    <script type="text/javascript" src="compress/merely-js.min.js"></script>
 
+    <script type="text/javascript">
+        var display, draw;
+
+        var bg = MerelyJS.spriteObjs.bgSprite("../RPG-tests/img/menu_bg.png", false);
+        var imgTile = new Image();
+        imgTile.src = "../tile.png";
+
+        function init() {
+        	display = MerelyJS.newDisplay(864, 516, "black");
+        	draw = MerelyJS.drawElements;
+
+        	MerelyJS.newLoop(function () {
+        		display.clear();
+
+        		bg.draw(display);
+
+        		for(let i = 14; i--;)
+        			for(let j = 8; j--;)
+        		    draw.drawImage(imgTile, (64*i), 64*j+270, 64, 64, display);
+        	}, display);
+        }
+
+    	window.onload = init;
+    </script>
 </body>
 </html>
