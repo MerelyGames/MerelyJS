@@ -3,8 +3,8 @@
 
 ### *API Документация:*
 Минимальный игровой код:
-
-   ´var display, draw;
+```javascript
+   var display, draw;
         
     function init() {
        MerelyJS.consoleLog("Page Loaded", "window");
@@ -18,7 +18,8 @@
        }, display, 60);
       }
 
-    window.onload = init;`
+    window.onload = init;
+    ```
       
 'MerelyJS' - самый главный ~~основной~~ объект, содержащий все необходимые свойства и методы.
 
