@@ -5,7 +5,6 @@
 Минимальный игровой код:
 
         var display, draw;
-
         function init() {
         	MerelyJS.consoleLog("Page Loaded", "window");
 
@@ -13,8 +12,7 @@
         	draw = MerelyJS.drawElements;
 
         	MerelyJS.newLoop(function () {
-        		display.clear();
-            
+        		display.clear();   
         	}, display, 60);
         }
 
