@@ -5,32 +5,72 @@
 	<meta charset="utf-8">
 </head>
 <body>
-    <!--<script type="text/javascript" src="merely-js.js"></script>-->
-    <script type="text/javascript" src="compress/merely-js.min.js"></script>
+    <script type="text/javascript" src="oop-js.js"></script>
+    <!--<script type="text/javascript" src="compress/merely-js.min.js"></script>-->
 
     <script type="text/javascript">
-        var display, draw;
+        var merelyjs, display, system, drawEl, events, mouse;
+        var canvas, ctx;
+        var player, arrObjs = [];
 
-        var bg = MerelyJS.spriteObjs.bgSprite("../RPG-tests/img/menu_bg.png", false);
-        var imgTile = new Image();
-        imgTile.src = "../tile.png";
+        var img     = new Image();
+            img.src = "bg.png";
+
+        var x = 0;
 
         function init() {
-        	display = MerelyJS.newDisplay(864, 516, "black");
-        	draw = MerelyJS.drawElements;
+            merelyjs = new MerelyJS();
+            display  = merelyjs.Display(880, 520, "black");
+            system   = merelyjs.System();
+            drawEl   = merelyjs.DrawElements();
+            events   = merelyjs.Events();
+            mouse    = events.MouseEvent;
 
-        	MerelyJS.newLoop(function () {
-        		display.clear();
+            for(let i = 1000; i--;) {
+                player = merelyjs.CreateGameObject(0, 0, 121, 64, "img.png", 1, {speed: 2});
+                arrObjs.push(player);
+            }
 
-        		bg.draw(display);
+            canvas = system.getCanvas();
+            ctx = system.getContext();
 
-        		for(let i = 14; i--;)
-        			for(let j = 8; j--;)
-        		    draw.drawImage(imgTile, (64*i), 64*j+270, 64, 64, display);
-        	}, display);
+            console.log("[JSConsole] Версия игрового движка \"MerelyJS\" - " + system.getVersion());
+
+            merelyjs.GameLoop(function () {
+                display.clearDisplay();
+
+                update();
+                draw();
+            }, null);
         }
 
-    	window.onload = init;
+        function draw() {
+            drawEl.drawImage(img, 0, 0, 880, 520);
+
+            drawEl.drawRect(x, 0, 100, 100, "red", 0.7);
+            drawEl.drawText("FPS: "+system.getFPS(), 0, 30, "25px cursive", "white", "left", 1);
+
+            system.drawArrObjs(arrObjs);
+        }
+
+        function update() {
+            x++;
+
+            if(!system.allResLoaded())
+                console.log("Загрузка - " + system.getLoadingStatus()+"%");
+
+            for(let i in arrObjs) {
+                arrObjs[i].speed = Math.round(Math.random()*10);
+                arrObjs[i].move("right", 2);
+                arrObjs[i].move("down");
+            }
+
+            if(mouse.onClickObj(player)) {
+                console.log("click");
+            }
+        }
+
+        window.onload = init;
     </script>
 </body>
 </html>
