@@ -10,7 +10,7 @@
 	this._fps_ = 60;
 
 	var _this = this;
-	var version = "v. 0.0.2";
+	var version = "v. 0.0.6";
 
 	var loadedRes = 0, totalRes = 0;
 
@@ -142,26 +142,22 @@
 			id: numObjs,
 
 			draw: function () {
-				if(!this.rotated) {
-				    let ctx = _this._ctx2D_;
+				let ctx = _this._ctx2D_;
 
-				    ctx.save();
-				    ctx.globalAlpha = this.alpha;
-				    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-				    ctx.restore();
-			    }
+				ctx.save();
+				ctx.globalAlpha = this.alpha;
+				ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+				ctx.restore();
 			},
 
 			rotate: function (deg) {
 				let ctx = _this._ctx2D_;
-				this.rotated = false;
 
 				ctx.save();
-				ctx.translate(this.x + this.width/2, this/y + this.height/2);
+				ctx.translate(this.x + this.width/2, this.y + this.height/2);
 				ctx.rotate(deg*Math.PI/180);
-				ctx.translate(-(this.x + this.width/2), -(this/y + this.height/2));
+				ctx.translate(-(this.x + this.width/2), -(this.y + this.height/2));
 				this.draw();
-				this.rotated = true;
 				ctx.restore();
 			},
 
@@ -257,6 +253,13 @@
 					if(this.clicked)
 					    if(this.x >= obj.x && this.x < obj.x + obj.width && this.y >= obj.y && this.y < obj.y + obj.height)
 						    return true;
+
+					return false;
+				},
+
+				onMouseOver: function (obj) {
+					if(this.x >= obj.x && this.x < obj.x + obj.width && this.y >= obj.y && this.y < obj.y + obj.height)
+						return true;
 
 					return false;
 				}
