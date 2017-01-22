@@ -5,11 +5,11 @@
 	<meta charset="utf-8">
 </head>
 <body>
-    <script type="text/javascript" src="merely-js.js"></script>
-    <!--<script type="text/javascript" src="compress-min/merely-js.min.js"></script>-->
+    <!--<script type="text/javascript" src="merely-js.js"></script>-->
+    <script type="text/javascript" src="compress-min/merely-js.min.js"></script>
 
     <script type="text/javascript">
-        var merelyjs, display, system, drawEl, events, mouse;
+        var merelyjs, display, system, drawEl, events, mouse, server;
         var canvas, ctx;
         var player, arrObjs = [];
 
@@ -25,14 +25,25 @@
             drawEl   = merelyjs.DrawElements();
             events   = merelyjs.Events();
             mouse    = events.MouseEvent;
+            server   = merelyjs.Server();
 
-            for(let i = 100; i--;) {
+            for(let i = 10; i--;) {
                 player = merelyjs.CreateGameObject(0, 0, 121, 64, "img.png", 1, {speed: 2});
                 arrObjs.push(player);
             }
 
             canvas = system.getCanvas();
             ctx = system.getContext();
+
+            var data = null;
+
+            server.sendAJAX("data.json");
+
+            let iter = setInterval(function () {
+                if(server.loaded) data = JSON.parse(server.getSendedAJAX());
+                console.log(data);
+                if(data != null || data != "loading") clearInterval(iter);
+            }, 50);
 
             console.log("[JSConsole] Версия игрового движка \"MerelyJS\" - " + system.getVersion());
 
@@ -70,7 +81,7 @@
                 console.log("click");
             }
 
-            if(mouse.onMouseOver(player)) {
+            if(mouse.onHoverObj(player)) {
                 console.log("over");
             }
         }

@@ -10,7 +10,7 @@
 	this._fps_ = 60;
 
 	var _this = this;
-	var version = "v. 0.0.6";
+	var version = "v. 0.0.7";
 
 	var loadedRes = 0, totalRes = 0;
 
@@ -241,6 +241,33 @@
 		return sys;
 	},
 
+	this.Server = function () {
+		var server = {
+			data: "loading",
+			loaded: false,
+
+			sendAJAX: function(url) {
+				this.loaded = false;
+				var xhr = new XMLHttpRequest(), data = null;
+				xhr.open("GET", url, true);
+				xhr.send();
+
+				xhr.onreadystatechange = function () {
+					if(xhr.readyState == 4 && xhr.status == 200) {
+						server.data = xhr.responseText;
+						server.loaded = true;
+					}
+				}
+			},
+
+			getSendedAJAX: function () {
+				return this.data;
+			}
+		}
+
+		return server;
+	}
+
 	// ----------- Events -----------
 	this.Events = function () {
 		var events = {
@@ -257,7 +284,7 @@
 					return false;
 				},
 
-				onMouseOver: function (obj) {
+				onHoverObj: function (obj) {
 					if(this.x >= obj.x && this.x < obj.x + obj.width && this.y >= obj.y && this.y < obj.y + obj.height)
 						return true;
 
