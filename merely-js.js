@@ -10,11 +10,12 @@
 	this._fps_ = 60;
 
 	var _this = this;
-	var version = "v. 0.0.7";
+	var version = "v. 0.0.8";
 
 	var loadedRes = 0, totalRes = 0;
 
 	var numObjs = 0;
+	var numMusic = 0;
 
 	var timeLine = 0;
 
@@ -185,7 +186,7 @@
 		img.onload = function () {
 			obj.loaded = true;
 			loadedRes++;
-			console.log("[MerelyJS] Объект с id " + obj.id + " - создан и загружен!");
+			console.log("[MerelyJS] Объект с id " + obj.id + " под именем '" + src + "' - создан и загружен!");
 		}
 
 		if(typeof data == "object") {
@@ -241,27 +242,19 @@
 		return sys;
 	},
 
+	// ----------- Server -----------
 	this.Server = function () {
 		var server = {
-			data: "loading",
-			loaded: false,
-
-			sendAJAX: function(url) {
-				this.loaded = false;
-				var xhr = new XMLHttpRequest(), data = null;
+			sendGetAJAX: function(url, fct) {
+				var xhr = new XMLHttpRequest();
 				xhr.open("GET", url, true);
 				xhr.send();
 
 				xhr.onreadystatechange = function () {
 					if(xhr.readyState == 4 && xhr.status == 200) {
-						server.data = xhr.responseText;
-						server.loaded = true;
+						fct(xhr.responseText);
 					}
 				}
-			},
-
-			getSendedAJAX: function () {
-				return this.data;
 			}
 		}
 
@@ -303,5 +296,29 @@
 		}, false);
 
 		return events;
+	},
+
+	// ----------- Audio and Mousic -----------
+	this.CreateAudio = function (src, looping, play) {
+		var mus = new Audio(src);
+		mus.loop = looping;
+		totalRes++;
+
+		if(play) mus.play();
+
+		var objAudio = {
+			audio: mus,
+			id: numMusic,
+		    loaded: false
+		}
+
+		mus.oncanplaythrough  = function () {
+			objAudio.loaded = true;
+			loadedRes++;
+			console.log("[MerelyJS] Аудиофайл с id " + numMusic + " под именем '" + src + "' - загруженна и готова к работе!");
+			numMusic++;
+		}
+
+		return objAudio;
 	}
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MerelyJS API</title>
+</head>
+<style type="text/css">
+    body {
+    	margin: 0;
+    	background-color: lightgray;
+    }
+	#dateUpdate {
+		font-size: 20px;
+		margin: 10px;
+		text-align: center;
+		color: green;
+	}
+
+	.newAbs {
+		font-size: 17px;
+		background-color: gray;
+		max-width: 900px;
+		min-width: 100px;
+		color: pink;
+		text-align: left;
+		padding: 20px;
+		padding-top: 10px;
+		margin: 0 auto;
+		margin-bottom: 35px;
+	}
+
+	.newAbs .head {
+		color: white;
+		font-size: 20px;
+		padding: 5px;
+		text-align: center;
+		width: 890px;
+		height: 23px;
+		display: block;
+		border: 2px solid black;
+		border-radius: 5px;
+		background-color: #a3a0a0;
+	}
+
+	.info {
+		font-weight: bold;
+		color: lightgreen;
+		float: left;
+	}
+
+	code {
+		font-size: 18px;
+		color: white;
+	}
+
+	h1 {
+		text-align: center;
+		color: gray;
+		font-size: 40px;
+	}
+</style>
+<body>
+  <p id="dateUpdate"><b>Дата последнего изменения - 24.01.17</b></p>
+
+  <h1>MerelyJS API</h1>
+
+  <p class="newAbs">
+  <span class="head">new MerelyJS()</span><br>
+  <span class="info">API:&nbsp;</span><code> <mark>new MerelyJS();</mark></code> <br><span class="info">Справка:&nbsp;</span> Создает копию игрового движка.<br>
+  <span class="info">Пример:&nbsp;</span> <code>merelyjs = new MerelyJS();</code><br>
+  <span class="info">Возвращает:&nbsp;</span> (object) игровой движок с другими объектами.</p>
+
+  <p class="newAbs">
+  <span class="head">new MerelyJS().Display(width, height, bgColor);</span><br>
+  <span class="info">API:&nbsp;</span><code> <mark>Display(width, height, bgColor);</mark></code> <br><span class="info">Справка:&nbsp;</span> Создает canvas с параметрами: clearDisplay() - очищает весь холст, width (длина), height (высота), bg (фон холста).<br>
+  <span class="info">Пример:&nbsp;</span> <code>merelyjs.Display(width, height, bgColor);</code><br>
+  <span class="info">Возвращает:&nbsp;</span> (object) объект дисплея.</p>
+
+  <p class="newAbs">
+  <span class="head">new MerelyJS().GameLoop(function, fps);</span><br>
+  <span class="info">API:&nbsp;</span><code> <mark>GameLoop(function, fps);</mark></code> <br><span class="info">Справка:&nbsp;</span> Запускает новый игровой цикл function со скоростью fps.<br>
+  <span class="info">Пример:&nbsp;</span> <code>merelyjs.GameLoop(function, fps);</code><br>
+  <span class="info">Возвращает:&nbsp;</span> (object) игровой движок с другими объектами.</p>
+
+  <p class="newAbs">
+  <span class="head">new MerelyJS().CreateGameObject(x, y, width, height, src, alpha, objData);</span><br>
+  <span class="info">API:&nbsp;</span><code> <mark>CreateGameObject(x, y, width, height, src, alpha, objData);</mark></code> <br><span class="info">Справка:&nbsp;</span> Создает игровой объект, где src - путь к файлу изображения, alpha - прозрачность, objData - доп. свои данные для объкта.<br>
+  <span class="info">Пример:&nbsp;</span> <code>merelyjs.CreateGameObject(x, y, width, height, src, alpha, objData);</code><br>
+  <span class="info">Возвращает:&nbsp;</span> (object) объект со свойствами и значениями: clearDisplay() - очищает весь холст, width (длина), height (высота), bg (фон холста).</p>
+
+</body>
+</html>

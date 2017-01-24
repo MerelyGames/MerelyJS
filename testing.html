@@ -5,8 +5,8 @@
 	<meta charset="utf-8">
 </head>
 <body>
-    <!--<script type="text/javascript" src="merely-js.js"></script>-->
-    <script type="text/javascript" src="compress-min/merely-js.min.js"></script>
+    <script type="text/javascript" src="merely-js.js"></script>
+    <!--<script type="text/javascript" src="compress-min/merely-js.min.js"></script>-->
 
     <script type="text/javascript">
         var merelyjs, display, system, drawEl, events, mouse, server;
@@ -35,15 +35,15 @@
             canvas = system.getCanvas();
             ctx = system.getContext();
 
-            var data = null;
+            var audio = merelyjs.CreateAudio("test_audio.mp3", true, true);
 
-            server.sendAJAX("data.json");
+            console.log(audio);
 
-            let iter = setInterval(function () {
-                if(server.loaded) data = JSON.parse(server.getSendedAJAX());
-                console.log(data);
-                if(data != null || data != "loading") clearInterval(iter);
-            }, 50);
+            setTimeout(function () {console.log(audio);}, 2000);
+
+            server.sendGetAJAX("data.json", function (data) {
+                console.log("Data json: " + data);
+            });
 
             console.log("[JSConsole] Версия игрового движка \"MerelyJS\" - " + system.getVersion());
 
@@ -57,6 +57,8 @@
 
         function draw() {
             drawEl.drawImage(img, 0, 0, 880, 520);
+
+            drawEl.drawText("Загрузка: " + system.getLoadingStatus() + "%", 470, 50, "50px Arial", "red", "center", 1);
 
             drawEl.drawRect(x, 0, 100, 100, "red", 0.7);
             drawEl.drawText("FPS: "+system.getFPS(), 0, 30, "25px cursive", "white", "left", 1);
